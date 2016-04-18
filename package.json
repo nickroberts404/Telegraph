@@ -21,5 +21,9 @@
   "bugs": {
     "url": "https://github.com/nickroberts404/Telegraph/issues"
   },
-  "homepage": "https://github.com/nickroberts404/Telegraph#readme"
+  "homepage": "https://github.com/nickroberts404/Telegraph#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "morgan": "^1.7.0"
+  }
 }
