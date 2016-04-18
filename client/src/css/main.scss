@@ -1,6 +1,17 @@
 $color-text-main: #444;
+$color-text-primary: steelblue;
+$font-main: 'Lato';
 
 h2 {
 	text-align: center;
 	color: $color-text-main;
+	font-family: $font-main;
+	font-weight: 300;
+}
+
+.bold {
+	font-weight: 700;
+}
+.text-primary {
+	color: $color-text-primary;	
 }

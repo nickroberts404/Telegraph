@@ -26,7 +26,7 @@ gulp.task('scripts', ()=> {
 
 // This task keeps an eye on our source files and rebuilds them when they change.
 gulp.task('watch', ()=> {
-	gulp.watch('./src/css/**/*.scss', 	['sass']);
+	gulp.watch('./src/css/**/*.scss', 	['styles']);
 	gulp.watch('./src/js/**/*.js', 		['scripts']);
 })
 

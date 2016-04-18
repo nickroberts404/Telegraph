@@ -1,3 +1,11 @@
 h2 {
   text-align: center;
-  color: #444; }
+  color: #444;
+  font-family: "Lato";
+  font-weight: 300; }
+
+.bold {
+  font-weight: 700; }
+
+.text-primary {
+  color: steelblue; }
