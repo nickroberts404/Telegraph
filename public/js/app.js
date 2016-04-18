@@ -29,6 +29,24 @@ var App = function (_React$Component) {
 	}
 
 	_createClass(App, [{
+		key: 'handleKeyPress',
+		value: function handleKeyPress(e) {
+			e.preventDefault();
+			if (e.keyCode === 32 && !e.repeat) {
+				console.log('boop');
+			}
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			window.addEventListener('keydown', this.handleKeyPress);
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			window.removeEventListener('keydown', this.handleKeyPress);
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return React.createElement(
