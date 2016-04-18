@@ -1,0 +1,25 @@
+{
+  "name": "telegraph",
+  "version": "1.0.0",
+  "description": "A realtime digitelegraph.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickroberts404/Telegraph.git"
+  },
+  "keywords": [
+    "telegraph",
+    "realtime",
+    "communication"
+  ],
+  "author": "Nick Roberts",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickroberts404/Telegraph/issues"
+  },
+  "homepage": "https://github.com/nickroberts404/Telegraph#readme"
+}
