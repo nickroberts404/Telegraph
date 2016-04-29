@@ -30,4 +30,4 @@ gulp.task('watch', ()=> {
 	gulp.watch('./src/js/**/*.js', 		['scripts']);
 })
 
-gulp.task('dev', ['scripts', 'styles', 'watch']);
+gulp.task('default', ['scripts', 'styles', 'watch']);
