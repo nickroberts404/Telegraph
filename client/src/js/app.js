@@ -27,6 +27,7 @@ export default class App extends React.Component {
 
 	addWordSpace() {
 		this.setState({message: this.state.message + '  '})
+		socket.emit('bangin', {message: this.state.message});
 	}
 
 	undo() {

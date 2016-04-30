@@ -16,6 +16,9 @@ app.get('/', function(req, res) {
 
 io.on('connection', socket => {
 	console.log(chalk.yellow('new connection'));
+	socket.on('bangin', data => {
+		console.log(data);
+	})
 })
 
 server.listen(3000, () => console.log(chalk.red('Listening at http://localhost:3000')));

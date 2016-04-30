@@ -62,6 +62,7 @@ var App = function (_React$Component) {
 		key: 'addWordSpace',
 		value: function addWordSpace() {
 			this.setState({ message: this.state.message + '  ' });
+			socket.emit('bangin', { message: this.state.message });
 		}
 	}, {
 		key: 'undo',
