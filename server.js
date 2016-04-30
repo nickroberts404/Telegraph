@@ -3,6 +3,7 @@
 var express = require('express');
 var app = express();
 var morgan = require('morgan');
+var chalk = require('chalk');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
@@ -14,7 +15,7 @@ app.get('/', function(req, res) {
 })
 
 io.on('connection', socket => {
-	console.log('new connection');
+	console.log(chalk.yellow('new connection'));
 })
 
-server.listen(3000, () => console.log('Listening at http://localhost:3000'));
+server.listen(3000, () => console.log(chalk.red('Listening at http://localhost:3000')));

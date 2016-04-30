@@ -19,32 +19,96 @@ var render = require('react-dom').render;
 var socket = require('socket.io-client')();
 console.log('Welcome to telegraph...');
 
-var App = function (_React$Component) {
-	_inherits(App, _React$Component);
+var Telegraph = function (_React$Component) {
+	_inherits(Telegraph, _React$Component);
 
-	function App() {
-		_classCallCheck(this, App);
+	function Telegraph(props) {
+		_classCallCheck(this, Telegraph);
 
-		return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Telegraph).call(this, props));
+
+		_this.state = {
+			message: '',
+			time: null
+		};
+		return _this;
 	}
 
-	_createClass(App, [{
-		key: 'handleKeyPress',
-		value: function handleKeyPress(e) {
+	_createClass(Telegraph, [{
+		key: 'handleKeyDown',
+		value: function handleKeyDown(e) {
 			e.preventDefault();
 			if (e.keyCode === 32 && !e.repeat) {
-				console.log('boop');
+				var gapTime = this.getTimeOffset();
+				if (gapTime > this.props.timeUnit && gapTime < this.props.timeUnit * 3) {
+					this.addLetterSpace();
+				} else if (gapTime > this.props.timeUnit * 3) {
+					this.addWordSpace();
+				}
+				this.setTime();
 			}
 		}
 	}, {
+		key: 'handleKeyUp',
+		value: function handleKeyUp(e) {
+			e.preventDefault();
+			if (e.keyCode === 32 && !e.repeat) {
+				var holdTime = this.getTimeOffset();
+				if (holdTime < this.props.timeUnit) {
+					this.addDot();
+				} else {
+					this.addDash();
+				}
+				this.setTime();
+				console.log(this.state.message);
+			}
+		}
+	}, {
+		key: 'setTime',
+		value: function setTime() {
+			this.setState({ time: Date.now() });
+		}
+	}, {
+		key: 'getTimeOffset',
+		value: function getTimeOffset() {
+			var time = arguments.length <= 0 || arguments[0] === undefined ? Date.now() : arguments[0];
+
+			return time - (this.state.time || time);
+		}
+	}, {
+		key: 'addDot',
+		value: function addDot() {
+			this.setState({ message: this.state.message + '.' });
+		}
+	}, {
+		key: 'addDash',
+		value: function addDash() {
+			this.setState({ message: this.state.message + '-' });
+		}
+	}, {
+		key: 'addLetterSpace',
+		value: function addLetterSpace() {
+			this.setState({ message: this.state.message + ' ' });
+		}
+	}, {
+		key: 'addWordSpace',
+		value: function addWordSpace() {
+			this.setState({ message: this.state.message + '   ' });
+		}
+	}, {
+		key: 'removeLastCharacter',
+		value: function removeLastCharacter() {}
+	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			window.addEventListener('keydown', this.handleKeyPress);
+			window.addEventListener('keydown', this.handleKeyDown.bind(this));
+			window.addEventListener('keyup', this.handleKeyUp.bind(this));
 		}
 	}, {
 		key: 'componentWillUnmount',
 		value: function componentWillUnmount() {
-			window.removeEventListener('keydown', this.handleKeyPress);
+			window.removeEventListener('keydown', this.handleKeyDown.bind(this));
+			window.removeEventListener('keyup', this.handleKeyUp.bind(this));
 		}
 	}, {
 		key: 'render',
@@ -57,13 +121,25 @@ var App = function (_React$Component) {
 		}
 	}]);
 
-	return App;
+	return Telegraph;
 }(React.Component);
 
-exports.default = App;
+exports.default = Telegraph;
 
 
-render(React.createElement(App, null), document.getElementById('app'));
+Telegraph.propTypes = {
+	timeUnit: React.PropTypes.number,
+	addDot: React.PropTypes.func,
+	addDash: React.PropTypes.func,
+	addLetterSpace: React.PropTypes.func,
+	addWordSpace: React.PropTypes.func,
+	undo: React.PropTypes.func
+};
+Telegraph.defaultProps = {
+	timeUnit: 200
+};
+
+render(React.createElement(Telegraph, null), document.getElementById('app'));
 
 },{"react":198,"react-dom":62,"socket.io-client":199}],2:[function(require,module,exports){
 module.exports = after
