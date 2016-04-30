@@ -9,13 +9,16 @@ export default class Telegraph extends React.Component {
 		super(props);
 		this.state = {
 			message: '',
-			time: null
+			time: null,
+			letterTimeout: null,
+			wordTimeout: null,
 		}
 	}
 
 	handleKeyDown(e) {
 		e.preventDefault();
 		if(e.keyCode === 32 && !e.repeat) {
+			this.clearTimeouts();
 			this.setTime();
 		}
 	}
@@ -30,8 +33,21 @@ export default class Telegraph extends React.Component {
 				this.addDash();
 			}
 			this.setTime();
+			this.setTimeouts();
 			console.log(this.state.message);
 		}
+
+	}
+
+	clearTimeouts() {
+		window.clearTimeout(this.state.letterTimeout);
+		window.clearTimeout(this.state.wordTimeout);
+	}
+
+	setTimeouts() {
+		var letterTimeout = window.setTimeout(this.addLetterSpace.bind(this), this.props.timeUnit);
+		var wordTimeout = window.setTimeout(this.addWordSpace.bind(this), this.props.timeUnit * 3);
+		this.setState({letterTimeout, wordTimeout});
 	}
 
 	setTime() {

@@ -29,7 +29,9 @@ var Telegraph = function (_React$Component) {
 
 		_this.state = {
 			message: '',
-			time: null
+			time: null,
+			letterTimeout: null,
+			wordTimeout: null
 		};
 		return _this;
 	}
@@ -39,6 +41,7 @@ var Telegraph = function (_React$Component) {
 		value: function handleKeyDown(e) {
 			e.preventDefault();
 			if (e.keyCode === 32 && !e.repeat) {
+				this.clearTimeouts();
 				this.setTime();
 			}
 		}
@@ -54,8 +57,22 @@ var Telegraph = function (_React$Component) {
 					this.addDash();
 				}
 				this.setTime();
+				this.setTimeouts();
 				console.log(this.state.message);
 			}
+		}
+	}, {
+		key: 'clearTimeouts',
+		value: function clearTimeouts() {
+			window.clearTimeout(this.state.letterTimeout);
+			window.clearTimeout(this.state.wordTimeout);
+		}
+	}, {
+		key: 'setTimeouts',
+		value: function setTimeouts() {
+			var letterTimeout = window.setTimeout(this.addLetterSpace.bind(this), this.props.timeUnit);
+			var wordTimeout = window.setTimeout(this.addWordSpace.bind(this), this.props.timeUnit * 3);
+			this.setState({ letterTimeout: letterTimeout, wordTimeout: wordTimeout });
 		}
 	}, {
 		key: 'setTime',
