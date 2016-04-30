@@ -29,8 +29,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var socket = require('socket.io-client')();
 console.log('Welcome to telegraph...');
 
-var App = function (_React$Component) {
-	_inherits(App, _React$Component);
+var App = function (_Component) {
+	_inherits(App, _Component);
 
 	function App(props) {
 		_classCallCheck(this, App);
@@ -47,26 +47,38 @@ var App = function (_React$Component) {
 		key: 'addDot',
 		value: function addDot() {
 			this.setState({ message: this.state.message + '.' });
+			if (this.props.chunk === 'boop') this.emitMessage();
 		}
 	}, {
 		key: 'addDash',
 		value: function addDash() {
 			this.setState({ message: this.state.message + '-' });
+			if (this.props.chunk === 'boop') this.emitMessage();
 		}
 	}, {
 		key: 'addLetterSpace',
 		value: function addLetterSpace() {
 			this.setState({ message: this.state.message + ' ' });
+			if (this.props.chunk === 'letter') this.emitMessage();
 		}
 	}, {
 		key: 'addWordSpace',
 		value: function addWordSpace() {
 			this.setState({ message: this.state.message + '  ' });
-			socket.emit('bangin', { message: this.state.message });
+			if (this.props.chunk === 'word') this.emitMessage();
+		}
+	}, {
+		key: 'emitMessage',
+		value: function emitMessage() {
+			console.log('[App.emitMessage] Emitting message!');
+			socket.emit('message', { message: this.state.message });
+			this.setState({ message: '' });
 		}
 	}, {
 		key: 'undo',
-		value: function undo() {}
+		value: function undo() {
+			// Will erase previous letter or space.
+		}
 	}, {
 		key: 'render',
 		value: function render() {
@@ -89,10 +101,18 @@ var App = function (_React$Component) {
 	}]);
 
 	return App;
-}(_react2.default.Component);
+}(_react.Component);
 
 exports.default = App;
 
+
+App.propTypes = {
+	chunk: _react.PropTypes.oneOf(['boop', 'letter', 'word']).isRequired
+};
+
+App.defaultProps = {
+	chunk: 'word'
+};
 
 (0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById('app'));
 
