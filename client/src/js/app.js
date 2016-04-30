@@ -16,12 +16,6 @@ export default class Telegraph extends React.Component {
 	handleKeyDown(e) {
 		e.preventDefault();
 		if(e.keyCode === 32 && !e.repeat) {
-			var gapTime = this.getTimeOffset();
-			if(gapTime > this.props.timeUnit && gapTime < this.props.timeUnit*3 ) {
-				this.addLetterSpace();
-			} else if(gapTime > this.props.timeUnit*3) {
-				this.addWordSpace();
-			}
 			this.setTime();
 		}
 	}
@@ -64,7 +58,7 @@ export default class Telegraph extends React.Component {
 		this.setState({message: this.state.message + '   '})
 	}
 
-	removeLastCharacter() {
+	undo() {
 
 	}
 

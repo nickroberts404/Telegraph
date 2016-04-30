@@ -39,12 +39,6 @@ var Telegraph = function (_React$Component) {
 		value: function handleKeyDown(e) {
 			e.preventDefault();
 			if (e.keyCode === 32 && !e.repeat) {
-				var gapTime = this.getTimeOffset();
-				if (gapTime > this.props.timeUnit && gapTime < this.props.timeUnit * 3) {
-					this.addLetterSpace();
-				} else if (gapTime > this.props.timeUnit * 3) {
-					this.addWordSpace();
-				}
 				this.setTime();
 			}
 		}
@@ -96,8 +90,8 @@ var Telegraph = function (_React$Component) {
 			this.setState({ message: this.state.message + '   ' });
 		}
 	}, {
-		key: 'removeLastCharacter',
-		value: function removeLastCharacter() {}
+		key: 'undo',
+		value: function undo() {}
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
