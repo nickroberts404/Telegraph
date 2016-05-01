@@ -84,7 +84,7 @@ var App = function (_Component) {
 		key: 'emitChunk',
 		value: function emitChunk() {
 			console.log('[App.emitChunk] Emitting Chunk!');
-			socket.emit('chunk', { chunk: this.state.chunk });
+			socket.emit('chunk', { chunk: this.state.chunk.trim() });
 			this.setState({ chunk: '' });
 		}
 	}, {

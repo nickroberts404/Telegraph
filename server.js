@@ -16,7 +16,7 @@ app.get('/', function(req, res) {
 
 io.on('connection', socket => {
 	console.log(chalk.yellow('new connection'));
-	socket.on('message', data => {
+	socket.on('chunk', data => {
 		console.log(data);
 	})
 })
