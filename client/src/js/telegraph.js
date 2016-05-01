@@ -1,5 +1,5 @@
 // telegraph.js
-var React = require('react');
+import React from 'react';
 
 export default class Telegraph extends React.Component {
 	constructor(props) {

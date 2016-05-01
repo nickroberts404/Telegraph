@@ -9,34 +9,47 @@ export default class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			message: ''
+			message: '',
+			chunk: ''
 		}
 	}
 
 	addDot() {
-		this.setState({message: this.state.message + '.'})
-		if(this.props.chunk === 'boop') this.emitMessage();
+		this.setState({
+			message: this.state.message + '.',
+			chunk: this.state.chunk + '.'
+		})
+		if(this.props.chunkSize === 'boop') this.emitChunk();
 	}
 
 	addDash() {
-		this.setState({message: this.state.message + '-'})
-		if(this.props.chunk === 'boop') this.emitMessage();
+		this.setState({
+			message: this.state.message + '-',
+			chunk: this.state.chunk + '-'
+		})
+		if(this.props.chunkSize === 'boop') this.emitChunk();
 	}
 
 	addLetterSpace() {
-		this.setState({message: this.state.message + ' '})
-		if(this.props.chunk === 'letter') this.emitMessage();
+		this.setState({
+			message: this.state.message + ' ',
+			chunk: this.state.chunk + ' '
+		})
+		if(this.props.chunkSize === 'letter') this.emitChunk();
 	}
 
 	addWordSpace() {
-		this.setState({message: this.state.message + '  '})
-		if(this.props.chunk === 'word') this.emitMessage();
+		this.setState({
+			message: this.state.message + ' ',
+			chunk: this.state.chunk + ' '
+		})
+		if(this.props.chunkSize === 'word') this.emitChunk();
 	}
 
-	emitMessage() {
-		console.log('[App.emitMessage] Emitting message!');
-		socket.emit('message', {message: this.state.message});
-		this.setState({message: ''});
+	emitChunk() {
+		console.log('[App.emitChunk] Emitting Chunk!');
+		socket.emit('chunk', {chunk: this.state.chunk});
+		this.setState({chunk: ''});
 	}
 
 	undo() {
@@ -59,11 +72,11 @@ export default class App extends Component {
 }
 
 App.propTypes = {
-	chunk: PropTypes.oneOf(['boop', 'letter', 'word']).isRequired
+	chunkSize: PropTypes.oneOf(['boop', 'letter', 'word']).isRequired
 }
 
 App.defaultProps = {
-	chunk: 'word'
+	chunkSize: 'word'
 }
 
 render(<App />, document.getElementById('app'));
