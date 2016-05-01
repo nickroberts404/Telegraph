@@ -2,6 +2,7 @@
 import React, {PropTypes, Component} from 'react';
 import {render} from 'react-dom';
 import Telegraph from './telegraph.js';
+import {parse} from './morseParser.js';
 var socket = require('socket.io-client')();
 console.log('Welcome to telegraph...');
 
@@ -10,7 +11,7 @@ export default class App extends Component {
 		super(props);
 		this.state = {
 			message: '',
-			chunk: ''
+			chunk: '',
 		}
 	}
 
@@ -32,23 +33,27 @@ export default class App extends Component {
 
 	addLetterSpace() {
 		this.setState({
-			message: this.state.message + ' ',
-			chunk: this.state.chunk + ' '
+			message: this.state.message + '!',
+			chunk: this.state.chunk + '!'
 		})
 		if(this.props.chunkSize === 'letter') this.emitChunk();
 	}
 
 	addWordSpace() {
 		this.setState({
-			message: this.state.message + ' ',
-			chunk: this.state.chunk + ' '
+			message: this.state.message + '%',
+			chunk: this.state.chunk + '%'
 		})
 		if(this.props.chunkSize === 'word') this.emitChunk();
 	}
 
 	emitChunk() {
 		console.log('[App.emitChunk] Emitting Chunk!');
-		socket.emit('chunk', {chunk: this.state.chunk.trim()});
+		socket.emit('chunk', {
+			chunk: this.state.chunk.trim(),
+			// textChunk: morse
+		});
+		console.log(parse(this.state.chunk, '!', '%').trim());
 		this.setState({chunk: ''});
 	}
 
